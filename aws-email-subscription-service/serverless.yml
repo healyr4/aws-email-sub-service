@@ -3,10 +3,13 @@ frameworkVersion: '3'
 
 custom:
   tableName: 'users-table-${sls:stage}'
-
+  region: ${self:provider.region}
 provider:
   name: aws
+  region: eu-west-1
   runtime: nodejs18.x
+  stage: dev
+  profile: serverless-admin
   iam:
     role:
       statements:
@@ -20,14 +23,22 @@ provider:
             - dynamodb:DeleteItem
           Resource:
             - Fn::GetAtt: [ UsersTable, Arn ]
+        - Effect: Allow
+          Action:
+            - "s3:*"
+          Resource: "*" 
   environment:
     USERS_TABLE: ${self:custom.tableName}
-
+    REGION: ${self:provider.region}
+    
 functions:
-  api:
-    handler: index.handler
+  facts:
+    handler: handler/getFacts.getFacts
     events:
-      - httpApi: '*'
+      - http:
+          path: facts
+          method: get 
+          cors: true
 
 resources:
   Resources:
