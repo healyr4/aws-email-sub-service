@@ -1,4 +1,4 @@
-service: aws-email-sub-service
+service: aws-email-subscription-service
 frameworkVersion: '3'
 
 custom:
