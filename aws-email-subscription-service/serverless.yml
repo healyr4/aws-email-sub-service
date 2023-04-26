@@ -27,6 +27,9 @@ provider:
           Action:
             - "s3:*"
           Resource: "*" 
+        - Effect: Allow
+          Action: SNS:Publish
+          Resource: !Ref FactsMessages
   environment:
     USERS_TABLE: ${self:custom.tableName}
     REGION: ${self:provider.region}
@@ -60,3 +63,15 @@ resources:
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:custom.tableName}
+
+    FactsMessages:
+      Type: AWS::SNS::Topic 
+      Properties:
+        # Create a topic to be subscribed to
+        TopicName: facts-messages-${self:provider.stage}
+    FactsMessagesSubscription:
+      Type: AWS::SNS::Subscription
+      Properties: 
+        DeliveryPolicy: Json
+        Endpoint: String
+
