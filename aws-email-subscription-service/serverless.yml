@@ -39,6 +39,13 @@ functions:
           path: facts
           method: get 
           cors: true
+  add:
+    handler: handler/addSubscriber.addSubscriber
+    events:
+      - http:
+          path: subscribe
+          method: post
+          cors: true
 
 resources:
   Resources:
