@@ -71,7 +71,17 @@ resources:
         TopicName: facts-messages-${self:provider.stage}
     FactsMessagesSubscription:
       Type: AWS::SNS::Subscription
-      Properties: 
-        DeliveryPolicy: Json
-        Endpoint: String
+      Properties:
+        TopicArn: !Ref FactsMessages
+        DeliveryPolicy: 
+          healthyRetryPolicy:
+            numRetries: 10
+            minDelayTarget: 20
+            maxDelayTarget: 300
+            backoffFunction: exponential
+          throttlePolicy:
+            maxReceivesPerSecond: 5
+        # Change! ------------------------
+        Endpoint: my-email@email.com
+        Protocol: email
 
