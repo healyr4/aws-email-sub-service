@@ -33,6 +33,7 @@ provider:
   environment:
     USERS_TABLE: ${self:custom.tableName}
     REGION: ${self:provider.region}
+    SNS_TOPIC_ARN: arn:aws:sns:eu-west-1:468644890612:facts-messages-dev
     
 functions:
   facts:
@@ -42,6 +43,7 @@ functions:
           path: facts
           method: get 
           cors: true
+
   add:
     handler: handler/addSubscriber.addSubscriber
     events:
@@ -49,6 +51,16 @@ functions:
           path: subscribe
           method: post
           cors: true
+
+  staticMailer:
+    handler: handler/staticMailer.staticMailer
+    events:
+      - http:
+          path: static-mailer
+          method: post
+          cors: true  
+
+  
 
 resources:
   Resources:
