@@ -34,7 +34,18 @@ provider:
     USERS_TABLE: ${self:custom.tableName}
     REGION: ${self:provider.region}
     SNS_TOPIC_ARN: arn:aws:sns:eu-west-1:468644890612:facts-messages-dev
-    
+
+# Add packaging information here
+package:
+ 
+ patterns:
+   - '!front-end/**'
+   - '!venv/**'
+   - '!README.md'
+   - '!build/**'
+  # Package each function individually 
+ individually: false
+
 functions:
   facts:
     handler: handler/getFacts.getFacts
