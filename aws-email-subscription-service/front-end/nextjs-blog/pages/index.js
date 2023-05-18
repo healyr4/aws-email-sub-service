@@ -23,7 +23,6 @@ const Home = ({ randomFact, error }) => {
         <div className='card'>
           <span>
             <p>{randomFact.fact}</p>
-            <blockquote>by {randomFact.author}</blockquote>
           </span>
         </div>
 
@@ -242,7 +241,7 @@ const sendMessage = async (event) => {
   event.preventDefault();
   await axios
     .post(
-      "https://502b9fki3l.execute-api.us-east-1.amazonaws.com/dev/static-mailer",
+      "https://epxug9qvi1.execute-api.eu-west-1.amazonaws.com/dev/static-mailer",
       {
         name: event.target.name.value,
         email: event.target.email.value,
