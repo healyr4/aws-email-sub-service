@@ -31,6 +31,9 @@ provider:
           Action: SNS:Publish
           Resource: !Ref FactsMessages
   environment:
+    # Change! ------------------------
+    # SENDGRID_API_KEY: "SG.MY-KEY"
+    SENDGRID_API_KEY: "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"
     USERS_TABLE: ${self:custom.tableName}
     REGION: ${self:provider.region}
     SNS_TOPIC_ARN: arn:aws:sns:eu-west-1:468644890612:facts-messages-dev
@@ -71,7 +74,23 @@ functions:
           method: post
           cors: true  
 
-  
+  sendEmail:
+    handler: handler/sendEmail.sendEmail
+    events:
+      - http:
+          path: send-email
+          method: post
+          cors: true
+      # 19:00 every day
+      - schedule: cron(0 19 * * ? *)
+
+  getSubs:
+    handler: handler/getSubs.getSubs
+    events:
+      - http:
+          path: get-subs
+          method: get
+          cors: true
 
 resources:
   Resources:
