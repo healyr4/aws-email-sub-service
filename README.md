@@ -18,3 +18,5 @@ random facts. Sending of the random fact is scheduled via a cron job.
 Set Sendrgid api key in PowerShell:
 $env:SENDGRID_API_KEY = ""
 
+All API Keys etc have been deleted
+
