@@ -15,7 +15,7 @@ module.exports.sendEmail = async(event) => {
         await sendgrid.sendMultiple({
             to: [subsList],
             // Change --------------------------- 
-            from: "rhealy1926@gmail.com",
+            from: "your-email@gmail.com",
             subject: `[Fact for Today]`,
             text: "Did you know?",
             html: emailHtml,
